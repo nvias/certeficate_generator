@@ -2,19 +2,28 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 
-def text_on_img(filename='01.png', text="Hello", size=12):
-    "Draw a text on an Image, saves it, show it"
-    fnt = ImageFont.truetype('arial.ttf', size)
-    # create image
-    image = Image.new(mode="RGB", size=(int(size / 2) * len(text), size + 50), color="red")
+"""
+:param text,image,font
+ writes text to console
+"""
+def certificat(text,image,font):
+    # nacte obrazek
+    image = Image.open(image)
     draw = ImageDraw.Draw(image)
-    # draw text
-    draw.text((10, 10), text, font=fnt, fill=(255, 255, 0))
-    # save file
-    image.save(filename)
-    # show file
-    os.system(filename)
+    # create font object with the font file and specify
+    # desired size
+    font = ImageFont.truetype(font, size=45)
+    msg = text
+    color = 'rgb(0, 0, 0)'  # black color
+    # draw the message on the background
+    W = image.width
+    H = image.height
+    w, h = draw.textsize(msg, font=font)
+    posH = (H - h) / 2 + 145
+    posW = (W / 2) - 0.5 * w
+    draw.text((posW, posH), msg, fill="black", font=font)
+    # save the edited image
+    image.save('greeting_card.png')
 
 
-if __name__== "__main__":
-    text_on_img(text="Text to write on img", size=300)
+certificat("Barbora Soukupova", 'certifikat.png', 'arial.ttf')
