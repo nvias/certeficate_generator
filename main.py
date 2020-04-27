@@ -22,6 +22,7 @@ def certificat(text):
     draw.text((posW, posH), text, fill="black", font=font)
     # save the edited image
     image.save('certificat_'+text+'.png')
+    return image
 
 
 certificat("Barbora Soukupova")
