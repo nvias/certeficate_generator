@@ -35,7 +35,7 @@ def certificat(text):
     posW = (W / 2) - 0.5 * w
     draw.text((posW, posH), text, fill="black", font=font)
     # save the edited image
-    image.save('cert.png')  # for testing purposes
+    image.save('certificat_' + text + '.png')  # for testing purposes
     return image
 
 
