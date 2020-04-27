@@ -3,7 +3,9 @@ import os
 import shutil
 import sys
 
-FILEPATH = "img.jpg"
+from main import certificat
+
+FILEPATH = "cert.png"
 
 
 class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -11,7 +13,9 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         with open(FILEPATH, 'rb') as f:
             self.send_response(200)
             name = self.path
+
             name = name.replace("/", "")
+            certificat(name)
             self.send_header("Content-Type", 'application/octet-stream')
             self.send_header("Content-Disposition", 'attachment; filename="{}"'.format(os.path.basename(FILEPATH)))
             fs = os.fstat(f.fileno())
