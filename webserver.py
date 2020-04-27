@@ -10,8 +10,8 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
         with open(FILEPATH, 'rb') as f:
             self.send_response(200)
-            #name = self.path
-            #name = name.replace("/", "")
+            name = self.path
+            name = name.replace("/", "")
             self.send_header("Content-Type", 'application/octet-stream')
             self.send_header("Content-Disposition", 'attachment; filename="{}"'.format(os.path.basename(FILEPATH)))
             fs = os.fstat(f.fileno())
