@@ -2,16 +2,20 @@ import http.server as BaseHTTPServer
 import os
 import shutil
 import sys
+from urllib.parse import unquote
 
-FILEPATH = "img.jpg"
+from certificate_generator import certificat
+
+FILEPATH = "new_certificate.png"
 
 
 class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
+        self.send_response(200)
+        name = unquote(self.path)
+        name = name.replace("/", "")
+        certificat(name)
         with open(FILEPATH, 'rb') as f:
-            self.send_response(200)
-            name = self.path
-            name = name.replace("/", "")
             self.send_header("Content-Type", 'application/octet-stream')
             self.send_header("Content-Disposition", 'attachment; filename="{}"'.format(os.path.basename(FILEPATH)))
             fs = os.fstat(f.fileno())
@@ -20,9 +24,9 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             shutil.copyfileobj(f, self.wfile)
 
 
-def test(HandlerClass=SimpleHTTPRequestHandler,
-         ServerClass=BaseHTTPServer.HTTPServer,
-         protocol="HTTP/1.0"):
+def run_server(HandlerClass=SimpleHTTPRequestHandler,
+               ServerClass=BaseHTTPServer.HTTPServer,
+               protocol="HTTP/1.0"):
     if sys.argv[2:]:
         port = int(sys.argv[2])
     else:
@@ -35,7 +39,3 @@ def test(HandlerClass=SimpleHTTPRequestHandler,
     sa = httpd.socket.getsockname()
     print("Serving HTTP on {0[0]} port {0[1]} ... {1}".format(sa, FILEPATH))
     httpd.serve_forever()
-
-
-if __name__ == '__main__':
-    test()
