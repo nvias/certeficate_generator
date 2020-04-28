@@ -1,4 +1,6 @@
+from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
+
 import os
 
 
@@ -78,7 +80,9 @@ def certificat(text, size, image):
         normal_name(text, size, image)
 
 def font(size):
-    font = ImageFont.truetype("fonts\\introhead.otf", size=size)
+    cesta = "fonts/introhead.otf"
+    path = Path("fonts/introhead.otf")
+    font = ImageFont.truetype(path, size=size)
     return font
 
 
