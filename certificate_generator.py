@@ -1,4 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
+import os
+
 
 """
 :param text
@@ -6,23 +8,19 @@ from PIL import Image, ImageDraw, ImageFont
 """
 
 
-def normal_name(text, size):
-    image = Image.open('certifikat.png')
+def normal_name(text, size, image):
     draw = ImageDraw.Draw(image)
-    size = size
     W = image.width
     H = image.height
-    font = ImageFont.truetype("fonts\\introhead.otf", size=size)
-    w, h = draw.textsize(text, font=font)
-    while w > 550:
+    w, h = draw.textsize(text, font=font(size))
+    while w > 2300:
         size = size - 1
-        font = ImageFont.truetype("fonts\\introhead.otf", size=size)
-        w, h = draw.textsize(text, font=font)
+        w, h = draw.textsize(text, font=font(size))
 
-    posH = (H - h) / 2 - 30
+    posH = (H - h) / 2 + 30
     posW = (W / 2) - 0.5 * w
-    draw.text((posW, posH), text, fill="black", font=font)
-    image.save('new_certificate.png')  # for testing purposes
+    draw.text((posW, posH), text, fill="black", font=font(size))
+    image.save("certificates\\certificat_' + text + '.png")  # for testing purposes
     return image
 
 
@@ -32,39 +30,33 @@ def normal_name(text, size):
 """
 
 
-def long_name(text1, size):
-    image = Image.open('certifikat.png')
+def long_name(text1, size, image):
     draw = ImageDraw.Draw(image)
-    size = size
+    size1 = size
+    size2 = size
     W = image.width
     H = image.height
-    font = ImageFont.truetype("fonts\\introhead.otf", size=size)
     jmeno = text1[0] + " " + text1[1]
     prijmeni = text1[2]
     if len(text1) > 3:
         prijmeni = text1[2] + " " + text1[3]
 
-    wj, hj = draw.textsize(jmeno, font=font)
-    wp, hp = draw.textsize(prijmeni, font=font)
-    size1 = size
-    size2 = size
-    while wj > 550:
+    wj, hj = draw.textsize(jmeno, font=font(size1))
+    wp, hp = draw.textsize(prijmeni, font=font(size2))
+    while wj > 2300:
         size1 = size1 - 1
-        font = ImageFont.truetype("fonts\\introhead.otf", size=size1)
-        wj, hj = draw.textsize(jmeno, font=font)
-
-    while wp > 550:
+        wj, hj = draw.textsize(jmeno, font=font(size1))
+    while wp > 2300:
         size2 = size2 - 1
-        font = ImageFont.truetype("fonts\\introhead.otf", size=size2)
-        wp, hp = draw.textsize(prijmeni, font=font)
+        wp, hp = draw.textsize(prijmeni, font=font(size2))
 
-    posHj = (H - hj) / 2 - 0.75 * hj - 30
+    posHj = (H - hj) / 2 - 0.5 * hj + 70
+    posHp = (H - hp) / 2 + 0.5 * hp + 70
     posWj = (W / 2) - 0.5 * wj
-    posHp = (H - hp) / 2 + 0.75 * hp - 30
     posWp = (W / 2) - 0.5 * wp
-    draw.text((posWj, posHj), jmeno, fill="black", font=font)
-    draw.text((posWp, posHp), prijmeni, fill="black", font=font)
-    image.save('new_certificate.png')  # for testing purposes
+    draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
+    draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
+    image.save("certificates\\certificat_' + jmeno + " " + prijmeni + '.png")  # for testing purposes
     return image
 
 
@@ -74,18 +66,22 @@ def long_name(text1, size):
 """
 
 
-def certificat(text, size=75):
-    image = Image.open('certifikat.png')
+def certificat(text, size, image):
     draw = ImageDraw.Draw(image)
     W = image.width
     H = image.height
-    font = ImageFont.truetype("fonts\\introhead.otf", size=size)
     text1 = text.split(" ")
     if len(text1) > 2:
-        long_name(text1, size)
+        long_name(text1, size, image)
 
     else:
-        normal_name(text, size)
+        normal_name(text, size, image)
+
+def font(size):
+    font = ImageFont.truetype("fonts\\introhead.otf", size=size)
+    return font
 
 
-certificat("Jmeno Prijmeni")
+image = Image.open('certifikatAI.png')
+size = 300
+certificat("Zadej Jmeno", size, image)

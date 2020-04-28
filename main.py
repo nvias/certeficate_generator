@@ -21,7 +21,7 @@ def normal_name(text, size, image):
     posH = (H - h) / 2 + 30
     posW = (W / 2) - 0.5 * w
     draw.text((posW, posH), text, fill="black", font=font(size))
-    image.save('certificat_' + text + '.png')  # for testing purposes
+    image.save("certificates\\certificat_' + text + '.png")  # for testing purposes
     return image
 
 
@@ -58,7 +58,7 @@ def long_name(text1, size, image):
     posWp = (W / 2) - 0.5 * wp
     draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
     draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
-    image.save('certificat_' + jmeno + " " + prijmeni + '.png')  # for testing purposes
+    image.save("certificates\\certificat_' + jmeno + " " + prijmeni + '.png")  # for testing purposes
     return image
 
 
