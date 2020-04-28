@@ -22,7 +22,8 @@ def normal_name(text, size, image):
     posH = (H - h) / 2 + 30
     posW = (W / 2) - 0.5 * w
     draw.text((posW, posH), text, fill="black", font=font(size))
-    image.save("certificates\\certificat_' + text + '.png")  # for testing purposes
+    path = Path("certificates/" + "certificat_" + text + ".png")
+    image.save(path.as_posix())  # for testing purposes
     return image
 
 
@@ -58,7 +59,8 @@ def long_name(text1, size, image):
     posWp = (W / 2) - 0.5 * wp
     draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
     draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
-    image.save("certificates\\certificat_' + jmeno + " " + prijmeni + '.png")  # for testing purposes
+    path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
+    image.save(path.as_posix())  # for testing purposes
     return image
 
 
@@ -69,9 +71,6 @@ def long_name(text1, size, image):
 
 
 def certificat(text, size, image):
-    draw = ImageDraw.Draw(image)
-    W = image.width
-    H = image.height
     text1 = text.split(" ")
     if len(text1) > 2:
         long_name(text1, size, image)
@@ -80,8 +79,9 @@ def certificat(text, size, image):
         normal_name(text, size, image)
 
 def font(size):
-    cesta = "fonts/introhead.otf"
     path = Path("fonts/introhead.otf")
+    path = path.as_posix()
+
     font = ImageFont.truetype(path, size=size)
     return font
 
