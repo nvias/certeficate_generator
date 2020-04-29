@@ -44,21 +44,21 @@ def long_name(text1, size, image):
     if len(text1) > 3:
         prijmeni = text1[2] + " " + text1[3]
 
-    wj, hj = draw.textsize(jmeno, font=font(size1))
+    w1, h1 = draw.textsize(jmeno, font=font(size1))
     wp, hp = draw.textsize(prijmeni, font=font(size2))
-    while wj > 2300:
+    while w1 > 2300:
         size1 = size1 - 1
-        wj, hj = draw.textsize(jmeno, font=font(size1))
-    while wp > 2300:
+        w1, h1 = draw.textsize(jmeno, font=font(size1))
+    while w2 > 2300:
         size2 = size2 - 1
-        wp, hp = draw.textsize(prijmeni, font=font(size2))
+        w2, h2 = draw.textsize(prijmeni, font=font(size2))
 
-    posHj = (H - hj) / 2 - 0.5 * hj + 70
-    posHp = (H - hp) / 2 + 0.5 * hp + 70
-    posWj = (W / 2) - 0.5 * wj
-    posWp = (W / 2) - 0.5 * wp
-    draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
-    draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
+    posH1 = (H - h1) / 2 - 0.5 * h1 + 70
+    posH2 = (H - h2) / 2 + 0.5 * h2 + 70
+    posW1 = (W / 2) - 0.5 * w1
+    posW2 = (W / 2) - 0.5 * wp
+    draw.text((posW1, posH1), jmeno, fill="black", font=font(size1))
+    draw.text((posW1, posH2), prijmeni, fill="black", font=font(size2))
     path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
     image.save(path.as_posix())  # for testing purposes
     return image
@@ -81,7 +81,6 @@ def certificat(text, size, image):
 def font(size):
     path = Path("fonts/introhead.otf")
     path = path.as_posix()
-
     font = ImageFont.truetype(path, size=size)
     return font
 
