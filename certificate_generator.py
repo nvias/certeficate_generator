@@ -1,32 +1,35 @@
-from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
 import os
+from pathlib import Path
 
+from PIL import Image, ImageDraw, ImageFont
 
 """
 :param text
  writes normal-length name in picture
 """
 
+
 def normal_name(text, size, image):
+
     draw = ImageDraw.Draw(image)
     W = image.width
     H = image.height
     w, h = draw.textsize(text, font=font(size))
-    if w > 2300:
-        w_change = ((w + 2300) / 2300) * 0.65
-        size = round(size / w_change)
-    w, h = draw.textsize(text, font=font(size))
 
-   # while w > 2300:
-    #    size = size - 1
-     #   w, h = draw. textsize(text, font=font(size))
+    counter = 0
+    while w > 2300:
+        counter = counter + 1
+        size = size - 1
+        w, h = draw.textsize(text, font=font(size))
 
     posH = (H - h) / 2 + 30
     posW = (W / 2) - 0.5 * w
+
     draw.text((posW, posH), text, fill="black", font=font(size))
-    path = Path("certificates/" + "certificat_" + text + ".png")
-    image.save(path.as_posix())  # for testing purposes
+    if not __debug__:
+        path = Path("certificates/" + "certificat_" + text + ".png")
+        image.save(path.as_posix())  # for testing purposes
+
     return image
 
 
@@ -47,32 +50,34 @@ def long_name(text1, size, image):
     if len(text1) > 3:
         prijmeni = text1[2] + " " + text1[3]
 
-    w1, h1 = draw.textsize(jmeno, font=font(size1))
-    w2, h2 = draw.textsize(prijmeni, font=font(size2))
+    wj, hj = draw.textsize(jmeno, font=font(size1))
+    wp, hp = draw.textsize(prijmeni, font=font(size2))
 
-    if w1 > 2300:
-        w_change1 = ((w1 + 2300) / 2300) * 0.65
-        size1 = round(size1 / w_change1)
+    while wj > 2300:
+        size1 = size1 - 1
+        wj, hj = draw.textsize(jmeno, font=font(size1))
+    while wp > 2300:
+        size2 = size2 - 1
+        wp, hp = draw.textsize(prijmeni, font=font(size2))
 
-    if w2 > 2300:
-        w_change2 = ((w2 + 2300) / 2300) * 0.65
-        size2 = round(size2 / w_change2)
-
-    w1, h1 = draw.textsize(jmeno, font=font(size1))
-    w2, h2 = draw.textsize(prijmeni, font=font(size2))
-
-
-
-    posH1 = (H - h1) / 2 - 0.5 * h1 + 70
-    posH2 = (H - h2) / 2 + 0.5 * h2 + 70
-    posW1 = (W / 2) - 0.5 * w1
-    posW2 = (W / 2) - 0.5 * w2
-
-    draw.text((posW1, posH1), jmeno, fill="black", font=font(size1))
-    draw.text((posW2, posH2), prijmeni, fill="black", font=font(size2))
-    path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
-    image.save(path.as_posix())  # for testing purposes
+    posHj = (H - hj) / 2 - 0.5 * hj + 70
+    posHp = (H - hp) / 2 + 0.5 * hp + 70
+    posWj = (W / 2) - 0.5 * wj
+    posWp = (W / 2) - 0.5 * wp
+    draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
+    draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
+    if not __debug__:
+        path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
+        image.save(path.as_posix())  # for testing purposes
     return image
+
+
+def font(size):
+    path = Path("fonts/introhead.otf")
+    path = path.as_posix()
+
+    font = ImageFont.truetype(path, size=size)
+    return font
 
 
 """
@@ -81,25 +86,23 @@ def long_name(text1, size, image):
 """
 
 
-def certificat(text, size, image):
+def certificat(text, size=300, image='certifikatAI.png'):
+    image = Image.open(image)
+    path = Path("certificates/")
+    path = path.as_posix()
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+
     text1 = text.split(" ")
     if len(text1) > 2:
-        long_name(text1, size, image)
+        img = long_name(text1, size, image)
 
     else:
-        normal_name(text, size, image)
+        img = normal_name(text, size, image)
+    return img
 
-    return image
 
-
-def font(size):
-    path = Path("fonts/introhead.otf")
-    path = path.as_posix()
-    font = ImageFont.truetype(path, size=size)
-    return font
-
-if __name__ == '__main__':
-
-    image = Image.open('certifikatAI.png')
+if __name__ == "__main__":
     size = 300
-    certificat("Zadej Jmeno", size, image)
+    certificat("Dave")

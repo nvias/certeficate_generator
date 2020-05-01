@@ -14,7 +14,8 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.send_response(200)
         name = unquote(self.path)
         name = name.replace("/", "")
-        certificat(name)
+        img = certificat(name)
+        img.save(FILEPATH)
         with open(FILEPATH, 'rb') as f:
             self.send_header("Content-Type", 'application/octet-stream')
             self.send_header("Content-Disposition", 'attachment; filename="{}"'.format(os.path.basename(FILEPATH)))
