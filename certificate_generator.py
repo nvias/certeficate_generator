@@ -86,7 +86,7 @@ def font(size):
 """
 
 
-def certificat(text, size=300, image='certifikatAI.png'):
+def certificat(text, size=300, image='certifikatAI2.png'):
     image = Image.open(image)
     path = Path("certificates/")
     path = path.as_posix()
