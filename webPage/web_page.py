@@ -1,5 +1,7 @@
 import io
+from datetime import date
 
+today = date.today()
 from flask import Flask, redirect, url_for, request, send_file, render_template
 
 from certificate_generator import certificat

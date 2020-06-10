@@ -1,7 +1,7 @@
 <html>
 <style>
 input[type=text], select {
-  width: 100%;
+  width: 600px;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -11,7 +11,7 @@ input[type=text], select {
 }
 
 input[type=submit] {
-  width: 100%;
+  width: 600px;
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -31,13 +31,20 @@ div {
   padding: 20px;
 }
 
+img {
+  max-width: 600px;
+  height: auto;
+  border-radius: 8px;
+}
+
 
 </style>
 <body>
 <form action="{{ url_for('login') }}" method="post">
-    <label for="fname">Your name</label>
     <input id="fname" name="nm" placeholder="Your name.." type="text">
+    <br>
     <input type="submit" value="Submit">
 </form>
+<img alt="Nvias" src="static/img/nvias_logo.png">
 </body>
 </html>
