@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -8,9 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
  writes normal-length name in picture
 """
 
-
 def normal_name(text, size, image):
-
     draw = ImageDraw.Draw(image)
     W = image.width
     H = image.height
@@ -86,15 +83,13 @@ def font(size):
 """
 
 
-def certificat(text, size=300, image='certifikatAI2.png'):
+def certificat(text, size=300,
+               image=r'C:\Users\David\PycharmProjects\certeficate_generator\certificates\certifikatAI2.png'):
     image = Image.open(image)
     path = Path("certificates/")
-    path = path.as_posix()
-
-    if not os.path.exists(path):
-        os.makedirs(path)
 
     text1 = text.split(" ")
+
     if len(text1) > 2:
         img = long_name(text1, size, image)
 
