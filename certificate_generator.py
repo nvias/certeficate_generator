@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -7,10 +6,8 @@ from PIL import Image, ImageDraw, ImageFont
 :param text
  writes normal-length name in picture
 """
-
-
+height = -530
 def normal_name(text, size, image):
-
     draw = ImageDraw.Draw(image)
     W = image.width
     H = image.height
@@ -22,7 +19,7 @@ def normal_name(text, size, image):
         size = size - 1
         w, h = draw.textsize(text, font=font(size))
 
-    posH = (H - h) / 2 + 30
+    posH = (H - h) / 2 + height
     posW = (W / 2) - 0.5 * w
 
     draw.text((posW, posH), text, fill="black", font=font(size))
@@ -60,8 +57,8 @@ def long_name(text1, size, image):
         size2 = size2 - 1
         wp, hp = draw.textsize(prijmeni, font=font(size2))
 
-    posHj = (H - hj) / 2 - 0.5 * hj + 70
-    posHp = (H - hp) / 2 + 0.5 * hp + 70
+    posHj = (H - hj) / 2 - 0.5 * hj + height
+    posHp = (H - hp) / 2 + 0.5 * hp + height
     posWj = (W / 2) - 0.5 * wj
     posWp = (W / 2) - 0.5 * wp
     draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
@@ -86,15 +83,13 @@ def font(size):
 """
 
 
-def certificat(text, size=300, image='certifikatAI2.png'):
+def certificat(text, size=300,
+               image=r'certificates\GameCreator.png'):
     image = Image.open(image)
     path = Path("certificates/")
-    path = path.as_posix()
-
-    if not os.path.exists(path):
-        os.makedirs(path)
 
     text1 = text.split(" ")
+
     if len(text1) > 2:
         img = long_name(text1, size, image)
 
@@ -105,4 +100,5 @@ def certificat(text, size=300, image='certifikatAI2.png'):
 
 if __name__ == "__main__":
     size = 300
-    certificat("Dave")
+    img = certificat("Dave")
+    img.show()
