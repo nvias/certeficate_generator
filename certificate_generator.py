@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 :param text
  writes normal-length name in picture
 """
-
+height = -530
 def normal_name(text, size, image):
     draw = ImageDraw.Draw(image)
     W = image.width
@@ -19,7 +19,7 @@ def normal_name(text, size, image):
         size = size - 1
         w, h = draw.textsize(text, font=font(size))
 
-    posH = (H - h) / 2 + 30
+    posH = (H - h) / 2 + height
     posW = (W / 2) - 0.5 * w
 
     draw.text((posW, posH), text, fill="black", font=font(size))
@@ -57,8 +57,8 @@ def long_name(text1, size, image):
         size2 = size2 - 1
         wp, hp = draw.textsize(prijmeni, font=font(size2))
 
-    posHj = (H - hj) / 2 - 0.5 * hj + 70
-    posHp = (H - hp) / 2 + 0.5 * hp + 70
+    posHj = (H - hj) / 2 - 0.5 * hj + height
+    posHp = (H - hp) / 2 + 0.5 * hp + height
     posWj = (W / 2) - 0.5 * wj
     posWp = (W / 2) - 0.5 * wp
     draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
@@ -84,7 +84,7 @@ def font(size):
 
 
 def certificat(text, size=300,
-               image=r'C:\Users\David\PycharmProjects\certeficate_generator\certificates\certifikatAI2.png'):
+               image=r'certificates\GameCreator.png'):
     image = Image.open(image)
     path = Path("certificates/")
 
@@ -100,4 +100,5 @@ def certificat(text, size=300,
 
 if __name__ == "__main__":
     size = 300
-    certificat("Dave")
+    img = certificat("Dave")
+    img.show()
