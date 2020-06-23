@@ -1,5 +1,32 @@
 <html>
+
 <style>
+
+
+.loader {
+  position:fixed;
+  left: 45%;
+  top: 15%;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 input[type=text], select {
   width: 600px;
   padding: 12px 20px;
@@ -39,17 +66,28 @@ img {
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+
+
+
 </style>
 <div id="fb-root"></div>
 <script async crossorigin="anonymous" defer nonce="RlXoGk1V"
         src="https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v7.0"></script>
 <body>
 
-<form action="{{ url_for('login') }}" method="post">
-    <input id="fname" name="nm" placeholder="Your name.." type="text">
-    <br>
-    <input type="submit" value="Submit">
-</form>
-<img alt="Nvias" src="static/img/nvias_logo.png">
+<div class="loader" id='loader' style='display:none;'>
+</div>
+<div id="form">
+    <form action="{{ url_for('login') }}" method="post">
+        <input id="fname" name="nm" placeholder="Your name.." type="text">
+        <br>
+        <input onclick="document.getElementById('loader').style.display = 'block';
+    var x = document.getElementById('form');
+    x.style.display = 'none';
+" type="submit" value="Submit">
+    </form>
+    <img alt="Nvias" src="static/img/nvias_logo.png">
+</div>
 </body>
 </html>
