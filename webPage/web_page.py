@@ -25,7 +25,13 @@ def return_file(name):
     img = certificat(name)
     img.save(file_object, 'PNG')
     file_object.seek(0)
+
     return send_file(file_object, mimetype='image/PNG', attachment_filename=name + '.png', as_attachment=True)
+
+
+@app.route('/done')
+def done():
+    return render_template("done.html")
 
 
 @app.route('/')
@@ -33,8 +39,8 @@ def hello_world():
     return render_template("login.html")
 
 
-def run():
-    app.run(debug=True, host='127.0.0.1', port=8000)
+def run(port=8000):
+    app.run(debug=True, host='127.0.0.1', port=port)
 
 
 if __name__ == '__main__':
