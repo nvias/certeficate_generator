@@ -40,7 +40,7 @@ def hello_world():
 
 
 def run(port=8000):
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=False, host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
