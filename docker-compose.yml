@@ -1,0 +1,6 @@
+version: "3.3"
+services:
+  certificate_generator:
+    build: .
+    ports:
+      - "20001:8000"
