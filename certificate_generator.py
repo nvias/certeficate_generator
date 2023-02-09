@@ -3,6 +3,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from datetime import date
+
 """
 :param text
  writes normal-length name in picture
@@ -10,9 +12,12 @@ from PIL import Image, ImageDraw, ImageFont
 
 def normal_name(text, size, image, height=-530, bari_posrana_konstanta=2300, text_height=300):
     draw = ImageDraw.Draw(image)
+    dat = date.today()
+    dat = date.strftime("%d. %m. %Y")
     W = image.width
     H = image.height
     w, h = draw.textsize(text, font=font(size))
+    wd, hd = draw.textsize(str(dat), font=font(size))
 
     counter = 0
     while w > bari_posrana_konstanta or h > text_height:
@@ -22,8 +27,11 @@ def normal_name(text, size, image, height=-530, bari_posrana_konstanta=2300, tex
 
     posH = (H - h) / 2 + height
     posW = (W / 2) - 0.5 * w
+    posHd = (H - h) / 2 + (height + H / 4 - 135)
+    posWd = (W / 2) - 0.5 * w
 
     draw.text((posW, posH), text, fill="black", font=font(size))
+    draw.text((posWd, posHd), str(dat), fill="black", font=font_dat(100))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + text + ".png")
         image.save(path.as_posix())  # for testing purposes
@@ -45,11 +53,14 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
     H = image.height
     jmeno = text1[0] + " " + text1[1]
     prijmeni = text1[2]
+    dat = date.today()
+    dat = date.strftime("%d. %m. %Y")
     if len(text1) > 3:
         prijmeni = text1[2] + " " + text1[3]
 
     wj, hj = draw.textsize(jmeno, font=font(size1))
     wp, hp = draw.textsize(prijmeni, font=font(size2))
+    wd, wh = draw.textsize(str(dat), font=font_dat(size))
 
     while wj > bari_posrana_konstanta or hj > text_height:
         size1 = size1 - 1
@@ -62,8 +73,11 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
     posHp = (H - hp) / 2 + 0.5 * hp + height
     posWj = (W / 2) - 0.5 * wj
     posWp = (W / 2) - 0.5 * wp
+    posHd = (H - hd) / 2 + (height + H / 4 - 135)
+    posWd = (W / 2) - 0.5 * wd
     draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
     draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
+    draw.text((posWd, posHd), str(dat), fill="black", font=font_dat(100))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
         image.save(path.as_posix())  # for testing purposes
@@ -71,12 +85,18 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
 
 
 def font(size):
-    path = Path("fonts/introhead.otf")
+    path = Path("fonts/Poppins-Bold.ttf")
     path = path.as_posix()
 
     font = ImageFont.truetype(path, size=size)
     return font
 
+def font_dat(size):
+    path2 = Path("fonts/Poppins-Regular.ttf")
+    path2 = path2.as_posix()
+
+    font_det = ImageFont.truetype(path, size=size)
+    return font_dat
 
 """
 :param text
