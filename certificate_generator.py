@@ -13,6 +13,8 @@ from datetime import date
 def normal_name(text, size, image, height=-530, bari_posrana_konstanta=2300, text_height=300):
     draw = ImageDraw.Draw(image)
     dat = date.today()
+    if type(dat) is str: 
+        date.strptime(dat, "%d %m %Y")
     dat = date.strftime("%d. %m. %Y")
     W = image.width
     H = image.height
@@ -54,13 +56,15 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
     jmeno = text1[0] + " " + text1[1]
     prijmeni = text1[2]
     dat = date.today()
+    if type(dat) is str: 
+        date.strptime(dat, "%d %m %Y")
     dat = date.strftime("%d. %m. %Y")
     if len(text1) > 3:
         prijmeni = text1[2] + " " + text1[3]
 
     wj, hj = draw.textsize(jmeno, font=font(size1))
     wp, hp = draw.textsize(prijmeni, font=font(size2))
-    wd, wh = draw.textsize(str(dat), font=font_dat(size))
+    wd, wd = draw.textsize(str(dat), font=font_dat(size))
 
     while wj > bari_posrana_konstanta or hj > text_height:
         size1 = size1 - 1
