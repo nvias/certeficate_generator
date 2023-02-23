@@ -13,11 +13,11 @@ from datetime import date
 def normal_name(text, size, image, height=-530, bari_posrana_konstanta=2300, text_height=300):
     draw = ImageDraw.Draw(image)
     dat = date.today()
-    dat_text = date.strftime(dat, "%d. %m. %Y")
+    #dat_text = date.strftime(dat, "%d. %m. %Y")
     W = image.width
     H = image.height
     w, h = draw.textsize(text, font=font(size))
-    wd, hd = draw.textsize(str(dat_text), font=font(size))
+    wd, hd = draw.textsize(str(dat), font=font(size))
 
     counter = 0
     while w > bari_posrana_konstanta or h > text_height:
@@ -31,7 +31,7 @@ def normal_name(text, size, image, height=-530, bari_posrana_konstanta=2300, tex
     posWd = (W / 2) - 0.5 * w
 
     draw.text((posW, posH), text, fill="black", font=font(size))
-    draw.text((posWd, posHd), str(dat_text), fill="black", font=font_dat(100))
+    draw.text((posWd, posHd), str(dat), fill="black", font=font_dat(100))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + text + ".png")
         image.save(path.as_posix())  # for testing purposes
@@ -54,14 +54,14 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
     jmeno = text1[0] + " " + text1[1]
     prijmeni = text1[2]
     dat = date.today()
-    dat_text = date.strftime(dat, "%d. %m. %Y")
+    #dat_text = date.strftime(dat, "%d. %m. %Y")
     if len(text1) > 3:
         prijmeni = text1[2] + " " + text1[3]
 
     wj, hj = draw.textsize(jmeno, font=font(size1))
     wp, hp = draw.textsize(prijmeni, font=font(size2))
-    wd = draw.textsize(str(dat_text), font=font_dat(size))
-    hd = draw.textsize(str(dat_text), font=font_dat(size))
+    wd = draw.textsize(str(dat), font=font_dat(size))
+    hd = draw.textsize(str(dat), font=font_dat(size))
 
     while wj > bari_posrana_konstanta or hj > text_height:
         size1 = size1 - 1
@@ -78,7 +78,7 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
     posWd = (W / 2) - 0.5 * wd
     draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
     draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
-    draw.text((posWd, posHd), str(dat_text), fill="black", font=font_dat(100))
+    draw.text((posWd, posHd), str(dat), fill="black", font=font_dat(100))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
         image.save(path.as_posix())  # for testing purposes
