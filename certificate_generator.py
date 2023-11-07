@@ -23,7 +23,7 @@ def normal_name(text, size, image, height=-530, bari_posrana_konstanta=2300, tex
     posH = (H - h) / 2 + height
     posW = (W / 2) - 0.5 * w
 
-    draw.text((posW, posH), text, fill="black", font=font(size))
+    draw.text((posW, posH), text, fill="white", font=font(size))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + text + ".png")
         image.save(path.as_posix())  # for testing purposes
@@ -62,8 +62,8 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
     posHp = (H - hp) / 2 + 0.5 * hp + height
     posWj = (W / 2) - 0.5 * wj
     posWp = (W / 2) - 0.5 * wp
-    draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
-    draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
+    draw.text((posWj, posHj), jmeno, fill="white", font=font(size1))
+    draw.text((posWp, posHp), prijmeni, fill="white", font=font(size2))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
         image.save(path.as_posix())  # for testing purposes
@@ -71,7 +71,7 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
 
 
 def font(size):
-    path = Path("fonts/introhead.otf")
+    path = Path("fonts/Poppins-Black.ttf")
     path = path.as_posix()
 
     font = ImageFont.truetype(path, size=size)
