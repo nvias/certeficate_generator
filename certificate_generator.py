@@ -23,7 +23,7 @@ def normal_name(text, size, image, height=-530, bari_posrana_konstanta=2300, tex
     posH = (H - h) / 2 + height
     posW = (W / 2) - 0.5 * w
 
-    draw.text((posW, posH), text, fill="white", font=font(size))
+    draw.text((posW, posH), text, fill="black", font=font(size))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + text + ".png")
         image.save(path.as_posix())  # for testing purposes
