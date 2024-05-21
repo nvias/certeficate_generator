@@ -62,8 +62,8 @@ def long_name(text1, size, image, height=-530, bari_posrana_konstanta=2300, text
     posHp = (H - hp) / 2 + 0.5 * hp + height
     posWj = (W / 2) - 0.5 * wj
     posWp = (W / 2) - 0.5 * wp
-    draw.text((posWj, posHj), jmeno, fill="white", font=font(size1))
-    draw.text((posWp, posHp), prijmeni, fill="white", font=font(size2))
+    draw.text((posWj, posHj), jmeno, fill="black", font=font(size1))
+    draw.text((posWp, posHp), prijmeni, fill="black", font=font(size2))
     if not __debug__:
         path = Path("certificates/" + "certificat_" + jmeno + "_" + prijmeni + ".png")
         image.save(path.as_posix())  # for testing purposes
