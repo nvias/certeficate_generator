@@ -1,10 +1,25 @@
-FROM python:3.7-alpine
-WORKDIR /code
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-RUN apk add --no-cache gcc musl-dev linux-headers jpeg-dev zlib-dev freetype-dev
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+# Use Python 3.9 as the base image
+FROM python:3.9-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Copy application code to the container
+COPY . /app
+
+# Install dependencies
+RUN pip install --upgrade pip && \
+    pip install flask pillow werkzeug pandas
+
+# Create required directories
+#RUN mkdir -p templates certificates uploads fonts
+
+# Expose the port the app runs on
 EXPOSE 8000
-COPY . .
+
+# Command to run the Flask app
 CMD ["python", "main.py", "-c", "config"]
